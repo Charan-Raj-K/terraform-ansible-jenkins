@@ -8,3 +8,10 @@ resource "aws_instance" "myec2vm" {
     name = "My Linux EC2"
   }
 }
+resource "tls_private_key" "ec2_private_key" {
+algorithm = "RSA"
+rsa_bits  = 4096
+provisioner "local-exec" {
+command = "echo '${tls_private_key.ec2_private_key.private_key_pem}' > ~/usr/local/bin/${var.instance_keypair}.pem"
+      }
+}
