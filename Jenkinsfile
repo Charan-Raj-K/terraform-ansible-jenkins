@@ -26,13 +26,13 @@ pipeline{
                     sh "ansiblePlaybook disableHostKeyChecking: true, installation: 'ansible', playbook: 'playbook.yml'"			
 					}
 	        }
+			}
 	post{
 		success{
 			sh 'terraform destroy -auto-approve'
 		}
 	}
-    }
- }
+  }
 	
 	def getTerraformPath(){
 	   def tfpath = tool name: 'terraform', type: 'terraform'  
