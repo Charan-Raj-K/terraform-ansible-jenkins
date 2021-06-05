@@ -22,5 +22,6 @@ tls_private_key.ec2_private_key,
 ]
 provisioner "local-exec" {
 command = "chmod 400 ~/usr/local/bin/${var.instance_keypair}.pem"
+command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --private-key ~/usr/local/bin/${var.instance_keypair}.pem -i '${aws_instance.myec2vm.private_ip},' playbook.yml"
 }
 }
