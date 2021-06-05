@@ -32,6 +32,7 @@ pipeline{
 		}
 	}
 }
+}
 	
 	def getTerraformPath(){
 	   def tfpath = tool name: 'terraform', type: 'terraform'  
