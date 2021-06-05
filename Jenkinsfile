@@ -23,7 +23,7 @@ pipeline{
             }
 	stage ('Run Ansible Playbook'){
             steps{
-                    sh "ansiblePlaybook disableHostKeyChecking: true, installation: 'ansible', playbook: 'playbook.yml'"			
+                    sh "ansible-playbook playbook.yml"			
 					}
 	        }
 			}
