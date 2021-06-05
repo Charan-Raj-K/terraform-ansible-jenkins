@@ -4,6 +4,6 @@ resource "aws_instance" "myec2vm" {
   key_name              = var.instance_keypair
   vpc_security_group_ids = [aws_security_group.vps_ssh.id, aws_security_group.vps_web.id]
   tags = {
-    name = "My Linux EC2"
+    Name = "My Linux EC2"
   }
 }
