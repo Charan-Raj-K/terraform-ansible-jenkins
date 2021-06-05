@@ -15,3 +15,12 @@ provisioner "local-exec" {
 command = "echo '${tls_private_key.ec2_private_key.private_key_pem}' > ~/usr/local/bin/${var.instance_keypair}.pem"
       }
 }
+
+resource "null_resource" "key-perm" {
+depends_on = [
+tls_private_key.ec2_private_key,
+]
+provisioner "local-exec" {
+command = "chmod 400 ~/usr/local/bin/${var.instance_keypair}.pem"
+}
+}
