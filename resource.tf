@@ -16,11 +16,11 @@ provisioner "local-exec" {
 command = "echo '${tls_private_key.ec2_private_key.private_key_pem}' > /opt/${var.instance_keypair}.pem"
       }
 }
-module "key_pair" {
+/*module "key_pair" {
   source = "terraform-aws-modules/key-pair/aws"
   key_name   = "May"
   public_key = tls_private_key.ec2_private_key.public_key_openssh
-}
+}*/
 #we will be required to make the key private as by default this file gets saved with public access on the local machine
 resource "null_resource" "key-perm" {
 depends_on = [
