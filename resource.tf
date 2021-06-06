@@ -1,6 +1,3 @@
-
-
-
 resource "aws_instance" "myec2vm" {
   ami                   = data.aws_ami.amzlinux2.id
   instance_type         = var.instance_type
@@ -21,7 +18,6 @@ command = "sudo echo '${tls_private_key.ec2_private_key.private_key_pem}' > /opt
 }
 module "key_pair" {
   source = "terraform-aws-modules/key-pair/aws"
-
   key_name   = "May"
   public_key = tls_private_key.ec2_private_key.public_key_openssh
 }
@@ -36,11 +32,8 @@ command = "sudo chmod 400 /home/ec2-user/.ssh/${var.instance_keypair}.pem"
    }
 }
 
-resource "null_resource" "Ansible-execution" 
-  {
+resource "null_resource" "Ansible-execution"  {
 provisioner "local-exec" {
 command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --private-key /home/ec2-user/.ssh/${var.instance_keypair}.pem -i '${aws_instance.myec2vm.private_ip},' playbook.yml"
-
    }
 }
-
