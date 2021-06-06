@@ -27,13 +27,13 @@ depends_on = [
 tls_private_key.ec2_private_key,
 ]
 provisioner "local-exec" {
-command = "sudo chmod 400 /home/ec2-user/.ssh/${var.instance_keypair}.pem"
+command = "sudo chmod 400 /opt/${var.instance_keypair}.pem"
 
    }
 }
 
 resource "null_resource" "Ansible-execution"  {
 provisioner "local-exec" {
-command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --private-key /home/ec2-user/.ssh/${var.instance_keypair}.pem -i '${aws_instance.myec2vm.private_ip},' playbook.yml"
+command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --private-key /opt/${var.instance_keypair}.pem -i '${aws_instance.myec2vm.private_ip},' playbook.yml"
    }
 }
