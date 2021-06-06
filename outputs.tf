@@ -1,5 +1,5 @@
 ### The Ansible inventory file
-/*resource "local_file" "AnsibleInventory" {
+resource "local_file" "AnsibleInventory" {
   content = templatefile("inventory.tmpl",
     {
       private-dns = aws_instance.myec2vm.private_dns,
@@ -8,4 +8,4 @@
     }
   )
   filename = "inventory.yaml"
-}*/
+}
