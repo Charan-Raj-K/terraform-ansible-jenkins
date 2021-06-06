@@ -12,7 +12,7 @@ resource "tls_private_key" "ec2_private_key" {
 algorithm = "RSA"
 rsa_bits  = 4096
 provisioner "local-exec" {
-command = "echo '${tls_private_key.ec2_private_key.private_key_pem}' > /home/ec2-user/.ssh/${var.instance_keypair}.pem"
+command = "sudo echo '${tls_private_key.ec2_private_key.private_key_pem}' > /home/ec2-user/.ssh/${var.instance_keypair}.pem"
       }
 }
 
@@ -21,7 +21,7 @@ depends_on = [
 tls_private_key.ec2_private_key,
 ]
 provisioner "local-exec" {
-command = "chmod 400 /home/ec2-user/.ssh/${var.instance_keypair}.pem"
+command = "sudo chmod 400 /home/ec2-user/.ssh/${var.instance_keypair}.pem"
 
    }
 }
