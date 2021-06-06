@@ -12,7 +12,7 @@ resource "tls_private_key" "ec2_private_key" {
 algorithm = "RSA"
 rsa_bits  = 4096
 provisioner "local-exec" {
-command = "echo '${tls_private_key.ec2_private_key.private_key_pem}' > ~/usr/local/bin/${var.instance_keypair}.pem"
+command = "echo '${tls_private_key.ec2_private_key.private_key_pem}' > /home/ec2-user/.ssh/${var.instance_keypair}.pem"
       }
 }
 
@@ -21,14 +21,14 @@ depends_on = [
 tls_private_key.ec2_private_key,
 ]
 provisioner "local-exec" {
-command = "chmod 400 ~/usr/local/bin/${var.instance_keypair}.pem"
+command = "chmod 400 /home/ec2-user/.ssh/${var.instance_keypair}.pem"
 
    }
 }
 
 resource "null_resource" "key-auth" {
 provisioner "local-exec" {
-command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --private-key ~/usr/local/bin/${var.instance_keypair}.pem -i '${aws_instance.myec2vm.private_ip},' playbook.yml"
+command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ec2-user --private-key /home/ec2-user/.ssh/${var.instance_keypair}.pem -i '${aws_instance.myec2vm.private_ip},' playbook.yml"
 
    }
 }
