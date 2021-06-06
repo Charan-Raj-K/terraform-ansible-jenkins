@@ -13,7 +13,7 @@ resource "tls_private_key" "ec2_private_key" {
 algorithm = "RSA"
 rsa_bits  = 4096
 provisioner "local-exec" {
-command = "sudo echo '${tls_private_key.ec2_private_key.private_key_pem}' > /opt/${var.instance_keypair}.pem"
+command = "echo '${tls_private_key.ec2_private_key.private_key_pem}' > /opt/${var.instance_keypair}.pem"
       }
 }
 module "key_pair" {
@@ -27,7 +27,7 @@ depends_on = [
 tls_private_key.ec2_private_key,
 ]
 provisioner "local-exec" {
-command = "sudo chmod 400 /opt/${var.instance_keypair}.pem"
+command = "chmod 400 /opt/${var.instance_keypair}.pem"
 
    }
 }
