@@ -27,7 +27,7 @@ depends_on = [
 tls_private_key.ec2_private_key,
 ]
 provisioner "local-exec" {
-command = "chmod 400 /opt/${var.instance_keypair}.pem"
+command = "chmod 600 /opt/${var.instance_keypair}.pem"
 
    }
 }
